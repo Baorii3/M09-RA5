@@ -1,29 +1,27 @@
 package src;
 public class rot13{
+
+    private static final char[] CARACTERES_MINUS ="abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toCharArray();
+        private static final char[] CARACTERES_MAYUS ="abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toUpperCase().toCharArray();
+
     public static void main(String[] args) {
-        String fraseXifrada = xifraRot13("Holah, me llamo Ian. Tu?");
+        String fraseXifrada = xifraRot13("Hola, me uLlamo Iaan, tu?? eEncaAntado.");
         System.out.println(fraseXifrada);
         String fraseDesXifrada = desxifraRot13(fraseXifrada);
         System.out.println(fraseDesXifrada);
     }
 
     public static String xifraRot13(String frase) {
-        int indexCMinus;
-        int indexCharMayus;
-        char[] caracteres = "abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toCharArray();
-        char[] caracteresMayus = "abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toUpperCase().toCharArray();
         String result = "";
 
         for (int i = 0; i<frase.length(); i++) {
             char c = frase.charAt(i);
-            indexCMinus = indexChar(caracteres,c);
-            if (indexCMinus > 0) {
-                result += caracteres[(indexCMinus+13) % caracteres.length];
+            if (Character.isUpperCase(c)) {
+                result += xifraCaracter(CARACTERES_MAYUS, c);
                 continue;
             }
-            indexCharMayus = indexChar(caracteresMayus,c);
-            if (indexCharMayus > 0) {
-                result += caracteresMayus[(indexCharMayus+13) % caracteresMayus.length];
+            if (Character.isLowerCase(c)) {
+                result += xifraCaracter(CARACTERES_MINUS, c);
                 continue;
             }
             result += c;
@@ -32,22 +30,16 @@ public class rot13{
     }
 
     public static String desxifraRot13 (String frase) {
-        int indexCMinus;
-        int indexCharMayus;
-        char[] caracteres = "abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toCharArray();
-        char[] caracteresMayus = "abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toUpperCase().toCharArray();
         String result = "";
 
         for (int i = 0; i<frase.length(); i++) {
             char c = frase.charAt(i);
-            indexCMinus = indexChar(caracteres,c);
-            if (indexCMinus > 0) {
-                result += caracteres[(indexCMinus-13) % caracteres.length];
+            if (Character.isUpperCase(c)) {
+                result += desxifraCaracter(CARACTERES_MAYUS, c);
                 continue;
             }
-            indexCharMayus = indexChar(caracteresMayus,c);
-            if (indexCharMayus > 0) {
-                result += caracteresMayus[(indexCharMayus-13) % caracteresMayus.length];
+            if (Character.isLowerCase(c)) {
+                result += desxifraCaracter(CARACTERES_MINUS, c);
                 continue;
             }
             result += c;
@@ -62,5 +54,17 @@ public class rot13{
             }
         }
         return -1;
+    }
+
+    public static char xifraCaracter(char[] caracteres, char c) {
+        int index = indexChar(caracteres, c);
+        if (index > -1) return caracteres[(index+13) % caracteres.length];
+        return c;
+    }
+
+    public static char desxifraCaracter(char[] caracteres, char c) {
+        int index = indexChar(caracteres, c);
+        if (index > -1) return caracteres[(((index-13) % caracteres.length ) + caracteres.length) % caracteres.length];
+        return c;
     }
 }
