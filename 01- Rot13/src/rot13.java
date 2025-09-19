@@ -2,7 +2,7 @@ package src;
 public class rot13{
 
     private static final char[] CARACTERES_MINUS ="abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toCharArray();
-        private static final char[] CARACTERES_MAYUS ="abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toUpperCase().toCharArray();
+    private static final char[] CARACTERES_MAYUS ="abcdefghijklmnopkrstuvxyzàáèéèíïùúüòóñç".toUpperCase().toCharArray();
 
     public static void main(String[] args) {
         String fraseXifrada = xifraRot13("Hola, me uLlamo Iaan, tu?? eEncaAntado.");
