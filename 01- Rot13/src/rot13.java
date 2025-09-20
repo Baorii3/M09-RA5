@@ -64,7 +64,7 @@ public class rot13{
 
     public static char desxifraCaracter(char[] caracteres, char c) {
         int index = indexChar(caracteres, c);
-        if (index > -1) return caracteres[(((index-13) % caracteres.length ) + caracteres.length) % caracteres.length];
+        if (index > -1) return caracteres[((index-13) + caracteres.length) % caracteres.length];
         return c;
     }
 }
