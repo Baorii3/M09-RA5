@@ -10,7 +10,7 @@ public class RotX {
         System.out.printf("%nDesxifrat%n-----%n");
         printRotX(frasesXifrades, true);
 
-        System.out.printf("%nMissatge Xifrat: %s",frasesXifrades[3]);
+        System.out.printf("%nMissatge Xifrat: %s%n",frasesXifrades[3]);
         String[] frasesForcaBruta = forcaBrutaRotX(frasesXifrades[3]);
         for (int i = 0; i<frasesForcaBruta.length;i++){
             System.out.printf("(%d)-%s%n",i,frasesForcaBruta[i]);
