@@ -8,14 +8,18 @@ public class Polialfabetic {
     private static Random random;
 
     public static void main(String[] args) {
-        initRandom(CONTRASEÑA);
-        String msg = "aba";
-        String mensajeXifrado = xifraPoliAlfa(msg);
-        initRandom(CONTRASEÑA);
-        String mensajeDesxifrado = desxifraPoliAlfa(mensajeXifrado);
-
-        System.out.println(mensajeXifrado);
-        System.out.println(mensajeDesxifrado);
+        String msgs[] = {"Test 01 àrbritre, coixí, Perímetre", "Test 02 Taüll, DÍA, año", "Test 03 Peça, Òrrius, Bòvila"};
+        String msgsXifrats[] = new String[msgs.length];
+        System.out.println("Xifratge:\n----"); 
+        for (int i = 0; i < msgs.length; i++){
+            initRandom(CONTRASEÑA);
+            msgsXifrats[i] = xifraPoliAlfa(msgs[i]); System.out.printf("%-34s -> %s%n", msgs[i], msgsXifrats[i]);
+            System.out.println("Desxifratge:\n-----------");
+        }
+        for (int i = 0; i < msgs.length; i++) {
+            initRandom(CONTRASEÑA);
+            String msg = desxifraPoliAlfa(msgsXifrats[i]); System.out.printf("%-34s -> %s %n", msgsXifrats[i], msg);
+        }
     }
 
     public static void initRandom(long contra) {
