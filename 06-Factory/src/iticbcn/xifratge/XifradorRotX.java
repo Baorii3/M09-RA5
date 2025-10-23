@@ -8,11 +8,15 @@ public class XifradorRotX implements Xifrador{
     // XifraRotX i DesxifraRotX fan el mateix, podriem eliminar 1 dels dos.
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        
+        int desplaçament;
+        try {
+            desplaçament = Integer.parseInt(clau);
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("La clau RotX no és un número vàlid");
+        } 
         StringBuilder result = new StringBuilder();
         for (int i = 0; i<msg.length(); i++){
-            char c = msg.charAt(i);
-            int desplaçament = Integer.parseInt(msg);
+            char c = msg.charAt(i);    
             if (indexChar(CARACTERES_MAYUS, c) != -1) { // comprovem si esta en la llista
                 result.append(xifraCaracter(CARACTERES_MAYUS,c,desplaçament));
                 continue;
@@ -27,18 +31,24 @@ public class XifradorRotX implements Xifrador{
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        int desplaçament;
+        try {
+            desplaçament = Integer.parseInt(clau);
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        }
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i<xifrat.toString().length(); i++){
-            char c = xifrat.toString().charAt(i);
-            int desplaçament = Integer.parseInt(xifrat.toString());
-            if (indexChar(CARACTERES_MAYUS, c) != -1) { // comprovem si esta en la llista
-                result.append(xifraCaracter(CARACTERES_MAYUS,c,desplaçament));
-                continue;
-            } else if (indexChar(CARACTERES_MINUS, c) != -1){
-                result.append(xifraCaracter(CARACTERES_MINUS,c,desplaçament));
-                continue;
-            }
-            result.append(c);
+        String text = new String(xifrat.getBytes());
+        for (int i = 0; i<text.length(); i++){
+            char c = text.toString().charAt(i);
+        if (indexChar(CARACTERES_MAYUS, c) != -1) { // comprovem si esta en la llista
+            result.append(xifraCaracter(CARACTERES_MAYUS,c,-desplaçament));
+            continue;
+        } else if (indexChar(CARACTERES_MINUS, c) != -1){
+            result.append(xifraCaracter(CARACTERES_MINUS,c,-desplaçament));
+            continue;
+        }
+        result.append(c);
         } 
         return result.toString();
     }

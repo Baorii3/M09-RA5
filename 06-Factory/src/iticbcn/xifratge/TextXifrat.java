@@ -10,7 +10,7 @@ public class TextXifrat {
 
     @Override
     public String toString() {
-        return this.bytes.toString();
+        return new String(bytes);
     }
     public byte[] getBytes() {
         return this.bytes;

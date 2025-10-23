@@ -29,6 +29,9 @@ public class XifradorMonoalfabetic implements Xifrador {
 
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        if (clau == null) {
+            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+        }
         StringBuilder resuBuilder = new StringBuilder();
         for (int i = 0; i < msg.length();  i++) {
             char c = msg.charAt(i);
@@ -44,9 +47,13 @@ public class XifradorMonoalfabetic implements Xifrador {
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        if (clau == null) {
+            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+        }
+        String text = new String(xifrat.getBytes());
         StringBuilder resuBuilder = new StringBuilder();
-        for (int i = 0; i < xifrat.toString().length();  i++) {
-            char c = xifrat.toString().charAt(i);
+        for (int i = 0; i < text.toString().length();  i++) {
+            char c = text.toString().charAt(i);
             int index = indexChar(CARACTERS_PERMUTATS, c);
             if (index > -1) {
                 resuBuilder.append(Character.isUpperCase(c) ? CARACTERS[index] : Character.toLowerCase(CARACTERS[index]));
