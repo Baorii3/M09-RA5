@@ -8,6 +8,9 @@ public class XifradorRotX implements Xifrador{
     // XifraRotX i DesxifraRotX fan el mateix, podriem eliminar 1 dels dos.
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        if (clau.length() > 40 || clau.length() < 0) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        }
         int desplaçament;
         try {
             desplaçament = Integer.parseInt(clau);

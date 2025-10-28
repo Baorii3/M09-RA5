@@ -30,7 +30,7 @@ public class XifradorMonoalfabetic implements Xifrador {
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
         if (clau == null) {
-            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+            System.out.println("Xifratxe monoalfabètic no suporta clau != null");
         }
         StringBuilder resuBuilder = new StringBuilder();
         for (int i = 0; i < msg.length();  i++) {
@@ -48,7 +48,7 @@ public class XifradorMonoalfabetic implements Xifrador {
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
         if (clau == null) {
-            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+            System.out.println("Xifratxe monoalfabètic no suporta clau != null");
         }
         String text = new String(xifrat.getBytes());
         StringBuilder resuBuilder = new StringBuilder();
