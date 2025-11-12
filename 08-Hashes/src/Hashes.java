@@ -53,7 +53,8 @@ public class Hashes {
             return prefix;
         }
         for (int i = 0; i < caracters.length(); i++) {
-            String resultat = forcaBrutaRec(prefix + caracters.charAt(i), caracters, alg, hash, salt, maxLength);
+            String attempt = prefix + caracters.charAt(i);
+            String resultat = forcaBrutaRec(attempt, caracters, alg, hash, salt, maxLength);
             if (resultat != null) {
                 return resultat;
             }
