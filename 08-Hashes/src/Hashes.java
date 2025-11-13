@@ -41,23 +41,22 @@ public class Hashes {
 
         if (matches(prefix, alg, hash, salt)) return prefix;
 
-        int maxAdd = Math.min(6, maxLength - prefix.length());
         int L = caracters.length();
-        int[] indices = new int[maxAdd];
+        int[] indices = new int[maxLength];
         boolean done = false;
 
         while (!done) {
             StringBuilder intento = new StringBuilder(prefix);
-            for (int i = 0; i < maxAdd; i++) {
+            for (int i = 0; i < maxLength; i++) {
                 intento.append(caracters.charAt(indices[i]));
             }
             npass++;
             if (matches(intento.toString(), alg, hash, salt)) return intento.toString();
 
-            for (int pos = maxAdd - 1; pos >= 0; pos--) {
+            for (int pos =  maxLength - 1; pos >= 0; pos--) {
                 if (indices[pos] + 1 < L) {
                     indices[pos]++;
-                    for (int reset = pos + 1; reset < maxAdd; reset++) indices[reset] = 0;
+                    for (int reset = pos + 1; reset < maxLength; reset++) indices[reset] = 0;
                     break;
                 } else if (pos == 0) {
                     done = true;
