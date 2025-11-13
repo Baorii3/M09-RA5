@@ -46,9 +46,10 @@ public class Hashes {
         } else if (alg.equals("PBKDF2")) {
             hashProva = getPBKDF2AmbSalt(prefix, salt);
         }
+        if (hashProva != null && hashProva.equals(hash)) {
+            return prefix;
+        }
         npass++;
-        if (hashProva != null && hashProva.equals(hash)) return prefix;
-
         for (int i = 0; i < caracters.length(); i++) {
             String attempt = prefix + caracters.charAt(i);
             String resultat = forcaBrutaRec(attempt, caracters, alg, hash, salt, maxLength);
