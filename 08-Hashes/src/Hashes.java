@@ -39,19 +39,16 @@ public class Hashes {
     }
     
     private String forcaBrutaRec(String prefix, String caracters, String alg, String hash, String salt, int maxLength) {
-        if (prefix.length() > maxLength) {
-            return null;
-        }
-        npass++;
+        if (prefix.length() > maxLength) return null;
         String hashProva = null;
         if (alg.equals("SHA-512")) {
             hashProva = getSHA512AmbSalt(prefix, salt);
         } else if (alg.equals("PBKDF2")) {
             hashProva = getPBKDF2AmbSalt(prefix, salt);
         }
-        if (hashProva != null && hashProva.equals(hash)) {
-            return prefix;
-        }
+        npass++;
+        if (hashProva != null && hashProva.equals(hash)) return prefix;
+
         for (int i = 0; i < caracters.length(); i++) {
             String attempt = prefix + caracters.charAt(i);
             String resultat = forcaBrutaRec(attempt, caracters, alg, hash, salt, maxLength);
