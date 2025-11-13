@@ -32,47 +32,47 @@ public class Hashes {
     }
     
     public String forcaBruta(String alg, String hash, String salt){
-    String caracters = "abcdefABCDEF1234567890!";
-    int maxLength = 6;
-    npass = 0;
+        String caracters = "abcdefABCDEF1234567890!";
+        int maxLength = 6;
+        npass = 0;
 
-    String prefix = "";
-    if (prefix.length() > maxLength) return null;
+        String prefix = "";
+        if (prefix.length() > maxLength) return null;
 
-    if (matches(prefix, alg, hash, salt)) return prefix;
+        if (matches(prefix, alg, hash, salt)) return prefix;
 
-    int maxAdd = Math.min(6, maxLength - prefix.length());
-    int L = caracters.length();
-    int[] indices = new int[maxAdd];
-    boolean done = false;
+        int maxAdd = Math.min(6, maxLength - prefix.length());
+        int L = caracters.length();
+        int[] indices = new int[maxAdd];
+        boolean done = false;
 
-    while (!done) {
-        StringBuilder intento = new StringBuilder(prefix);
-        for (int i = 0; i < maxAdd; i++) {
-            intento.append(caracters.charAt(indices[i]));
-        }
-        npass++;
-        if (matches(intento.toString(), alg, hash, salt)) return intento.toString();
+        while (!done) {
+            StringBuilder intento = new StringBuilder(prefix);
+            for (int i = 0; i < maxAdd; i++) {
+                intento.append(caracters.charAt(indices[i]));
+            }
+            npass++;
+            if (matches(intento.toString(), alg, hash, salt)) return intento.toString();
 
-        for (int pos = maxAdd - 1; pos >= 0; pos--) {
-            if (indices[pos] + 1 < L) {
-                indices[pos]++;
-                for (int reset = pos + 1; reset < maxAdd; reset++) indices[reset] = 0;
-                break;
-            } else if (pos == 0) {
-                done = true;
+            for (int pos = maxAdd - 1; pos >= 0; pos--) {
+                if (indices[pos] + 1 < L) {
+                    indices[pos]++;
+                    for (int reset = pos + 1; reset < maxAdd; reset++) indices[reset] = 0;
+                    break;
+                } else if (pos == 0) {
+                    done = true;
+                }
             }
         }
+        return null;
     }
-    return null;
-}
 
-private boolean matches(String text, String alg, String hash, String salt) {
-    String h = null;
-    if (alg.equals("SHA-512")) h = getSHA512AmbSalt(text, salt);
-    else if (alg.equals("PBKDF2")) h = getPBKDF2AmbSalt(text, salt);
-    return h != null && h.equals(hash);
-}
+    private boolean matches(String text, String alg, String hash, String salt) {
+        String h = null;
+        if (alg.equals("SHA-512")) h = getSHA512AmbSalt(text, salt);
+        else if (alg.equals("PBKDF2")) h = getPBKDF2AmbSalt(text, salt);
+        return h != null && h.equals(hash);
+    }
 
     public String getInterval(long t1, long t2) {
         long diff = t2 - t1;
